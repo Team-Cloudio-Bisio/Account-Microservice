@@ -7,26 +7,31 @@ using Azure.Security.KeyVault.Secrets;
 namespace AccountMicroservice.Configuration {
     public class Configuration : IConfiguration {
 
-        private string DBConnString;
+        private string MicroserviceConnString;
 
         public Configuration() {
-            LoadDBConnectionString().Wait();
+            LoadMicroserviceConnectionString().Wait();
         }
 
-        private async Task LoadDBConnectionString() {
-            const string secretName = "DBConnectionString";
-            var keyVaultName = "MinecraftSaaS";
-            var kvUri = $"https://{keyVaultName}.vault.azure.net";
-            
-            var client = new SecretClient(new Uri(kvUri), new DefaultAzureCredential());
+        private async Task LoadMicroserviceConnectionString() {
+            string connectionString;
 
-            var secret = await client.GetSecretAsync(secretName);
-            DBConnString = secret.Value.Value;
+            if (IsRunningOnAzure()) {
+                connectionString = " ";
+            }
+            else {
+                connectionString = "http://localhost:4000";
+            }
+
+            MicroserviceConnString = connectionString;
         }
         
-        public string GetDBConnectionString() {
-            return DBConnString;
+        private bool IsRunningOnAzure() {
+            return Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT").Equals("Release");
+        }
+        
+        public string GetMicroserviceConnectionString() {
+            return MicroserviceConnString;
         }
     }
 }
-

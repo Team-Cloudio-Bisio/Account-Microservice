@@ -11,7 +11,7 @@ namespace AccountMicroservice.Utils {
     
     public class DBUtils {
 
-        public async Task<List<User>> RetrieveUsers(IConfiguration configuration) {
+        public async Task<List<User>> RetrieveUsers(AccountMicroservice.Configuration.IConfiguration configuration) {
             HttpClient client = new HttpClient();
             List<User>? res;
 

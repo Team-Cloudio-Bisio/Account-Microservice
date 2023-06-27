@@ -39,6 +39,21 @@ namespace AccountMicroservice.Controllers {
                 return StatusCode(503, "Server error");
         }
         
+        [HttpPost("signin", Name = "SigninUser")]
+        public async Task<IActionResult> SigninUser(User user) {
+            bool res;
+
+            res = await db.AddUser(_configuration, user);
+
+            if (res != null) {
+                if (res)
+                        return StatusCode(200, "Signin succesful!");
+                else return StatusCode(401, "Signin unsuccesful");
+            }
+            else
+                return StatusCode(503, "Server error");
+        }
+        
        
     }
 }

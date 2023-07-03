@@ -13,12 +13,9 @@ namespace AccountMicroservice.Controllers {
     [Route("[controller]")]
     public class AccountController : ControllerBase {
         
-        private readonly AccountMicroservice.Configuration.IConfiguration _configuration;
         private DBUtils db;
 
-        public AccountController(AccountMicroservice.Configuration.IConfiguration configuration) {
-            _configuration = configuration;
-
+        public AccountController() {
             db = new DBUtils();
         }
         
@@ -26,7 +23,7 @@ namespace AccountMicroservice.Controllers {
         public async Task<IActionResult> LoginUser(User user) {
             List<User>? res;
 
-            res = await db.RetrieveUsers(_configuration);
+            res = await db.RetrieveUsers();
 
             if (res != null) {
                 foreach (User u in res) {
@@ -43,7 +40,7 @@ namespace AccountMicroservice.Controllers {
         public async Task<IActionResult> SigninUser(User user) {
             bool res;
 
-            res = await db.AddUser(_configuration, user);
+            res = await db.AddUser(user);
 
             if (res != null) {
                 if (res)

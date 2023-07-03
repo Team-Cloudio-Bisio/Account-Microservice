@@ -6,21 +6,17 @@ using System.Net.Mime;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using AccountMicroservice.Configuration;
 using AccountMicroservice.Model;
 
 namespace AccountMicroservice.Utils {
     
     public class DBUtils {
 
-        public async Task<List<User>> RetrieveUsers(AccountMicroservice.Configuration.IConfiguration configuration) {
+        public async Task<List<User>> RetrieveUsers() {
             HttpClient client = new HttpClient();
             List<User>? res;
 
-            string microservice = "/User";
-            string connString = configuration.GetMicroserviceConnectionString();
-
-            string endpoint = connString + microservice;
+            string endpoint = "http://localhost:4000/User";;
 
             var response = await client.GetAsync(endpoint);
 
@@ -33,15 +29,12 @@ namespace AccountMicroservice.Utils {
             return null;
         }
         
-        public async Task<bool> AddUser(AccountMicroservice.Configuration.IConfiguration configuration, User user) {
+        public async Task<bool> AddUser(User user) {
             HttpClient client = new HttpClient();
             List<User>? res;
 
-            string microservice = "/User";
-            string connString = configuration.GetMicroserviceConnectionString();
-
-            string endpoint = connString + microservice;
-
+            string endpoint = "http://localhost:4000/User";;
+            
             var response = await client.PostAsync(endpoint, new StringContent(JsonSerializer.Serialize(user), Encoding.UTF8, MediaTypeNames.Application.Json));
 
             if (response.IsSuccessStatusCode) {

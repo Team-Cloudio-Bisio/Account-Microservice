@@ -28,12 +28,12 @@ namespace AccountMicroservice.Controllers {
             if (res != null) {
                 foreach (User u in res) {
                     if (u.Equals(user))
-                        return StatusCode(200, "Login succesful!");
+                        return StatusCode(200, new Message { message = "OK" });
                 }
-                return StatusCode(401, "Login unsuccesful");
+                return StatusCode(401, new Message { message = "NO" });
             }
             else
-                return StatusCode(503, "Server error");
+                return StatusCode(503, new Message { message = "NO" });
         }
         
         [HttpPost("signin", Name = "SigninUser")]
@@ -44,11 +44,11 @@ namespace AccountMicroservice.Controllers {
 
             if (res != null) {
                 if (res)
-                        return StatusCode(200, "Signin succesful!");
-                else return StatusCode(401, "Signin unsuccesful");
+                        return StatusCode(200, new Message { message = "OK" });
+                else return StatusCode(401, new Message { message = "NO" });
             }
             else
-                return StatusCode(503, "Server error");
+                return StatusCode(503, new Message { message = "NO" });
         }
         
        

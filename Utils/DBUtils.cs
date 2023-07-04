@@ -16,7 +16,7 @@ namespace AccountMicroservice.Utils {
             HttpClient client = new HttpClient();
             List<User>? res;
 
-            string endpoint = "http://dmbicroservice:80/User";
+            string endpoint = "http://dbmicroservice:80/User";
 
             var response = await client.GetAsync(endpoint);
 
@@ -33,7 +33,7 @@ namespace AccountMicroservice.Utils {
             HttpClient client = new HttpClient();
             List<User>? res;
 
-            string endpoint = "http://dmbicroservice:80/User";
+            string endpoint = "http://dbmicroservice:80/User";
             
             var response = await client.PostAsync(endpoint, new StringContent(JsonSerializer.Serialize(user), Encoding.UTF8, MediaTypeNames.Application.Json));
 

@@ -17,6 +17,7 @@ namespace AccountMicroservice.Utils {
             List<User>? res;
             string endpoint = "";
 
+            Console.WriteLine(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"));
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT").Equals("Development")) endpoint = "http://localhost:4000/User";
             else endpoint = "http://dmbicroservice:80/User";
 

@@ -15,11 +15,8 @@ namespace AccountMicroservice.Utils {
         public async Task<List<User>> RetrieveUsers() {
             HttpClient client = new HttpClient();
             List<User>? res;
-            string endpoint = "";
 
-            Console.WriteLine(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"));
-            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT").Equals("Development")) endpoint = "http://localhost:4000/User";
-            else endpoint = "http://dmbicroservice:80/User";
+            string endpoint = "http://dmbicroservice:80/User";
 
             var response = await client.GetAsync(endpoint);
 
@@ -35,10 +32,8 @@ namespace AccountMicroservice.Utils {
         public async Task<bool> AddUser(User user) {
             HttpClient client = new HttpClient();
             List<User>? res;
-            string endpoint = "";
 
-            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT").Equals("Development")) endpoint = "http://localhost:4000/User";
-            else endpoint = "http://dmbicroservice:80/User";
+            string endpoint = "http://dmbicroservice:80/User";
             
             var response = await client.PostAsync(endpoint, new StringContent(JsonSerializer.Serialize(user), Encoding.UTF8, MediaTypeNames.Application.Json));
 
